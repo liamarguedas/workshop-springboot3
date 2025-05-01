@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sode.course.entities.enums.OrderStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -39,8 +40,7 @@ public class Order implements Serializable {
 	@JoinColumn(name = "client_id")
 	private User client;
 
-	@OneToOne
-	@JoinColumn(name = "payment_id")
+	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
 	private Payment payment;
 	
 	
@@ -60,6 +60,14 @@ public class Order implements Serializable {
 	
 	public Set<OrderItem> getItems() {
 		return items;
+	}
+
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
 	}
 
 	public Long getId() {

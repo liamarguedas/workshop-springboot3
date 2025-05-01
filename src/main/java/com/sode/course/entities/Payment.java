@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -22,16 +23,28 @@ public class Payment implements Serializable {
 	private Long id;
 	private Instant moment;
 	
-	@OneToOne(mappedBy = "payment")
+	@OneToOne
+	@MapsId
 	private Order order;
 	
 	
 	public Payment() {}
 
 
-	public Payment(Long id, Instant moment) {
+	public Payment(Long id, Instant moment, Order order) {
 		this.id = id;
 		this.moment = moment;
+		this.order = order;
+	}
+
+
+	public Order getOrder() {
+		return order;
+	}
+
+
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 
