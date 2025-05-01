@@ -1,7 +1,10 @@
 package com.sode.course.entities;
 
 import java.io.Serializable;
+import java.security.InvalidAlgorithmParameterException;
 import java.util.Objects;
+
+import javax.management.InvalidAttributeValueException;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sode.course.entities.pk.OrderItemPK;
@@ -83,9 +86,11 @@ public class OrderItem implements Serializable {
 		return "OrderItem [quantity=" + quantity + ", price=" + price + "]";
 	}
 
-	public Double subTotal() {
-		
-		return quantity * price;
+	public Double getSubTotal() {
+		if(quantity > 0) {
+			return quantity * price;
+		}
 
+		return 0.;
 	}
 }

@@ -7,7 +7,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sode.course.entities.enums.OrderStatus;
 
 import jakarta.persistence.CascadeType;
@@ -126,9 +125,12 @@ public class Order implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
-	public double total() {
-		// implement
-		return .2;
+	public double getTotal() {
+		return items
+				.stream()
+				.map(item -> item.getSubTotal())
+				.reduce(0., Double::sum);
+		
 	}
 
 }
