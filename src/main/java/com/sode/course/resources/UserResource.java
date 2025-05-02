@@ -44,27 +44,25 @@ public class UserResource {
 
 		User newUser = service.insert(obj);
 
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}")
-				.buildAndExpand(newUser.getId())
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newUser.getId())
 				.toUri();
-		
+
 		return ResponseEntity.created(uri).body(newUser);
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);
-		
+
 		return ResponseEntity.noContent().build();
-}
-	@PutMapping(value="/{id}")
-	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User usr){
-		
+	}
+
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User usr) {
+
 		User newUser = service.update(id, usr);
-		
+
 		return ResponseEntity.ok().body(newUser);
-		
-		
+
 	}
 }
